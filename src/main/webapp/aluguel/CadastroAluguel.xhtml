@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Novo Aluguel</ui:define>
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<o:viewParam name="aluguel" value="#{cadastroAluguel.aluguel}" />
+		</f:metadata>
+
+		<h1>Cadastro de Aluguel</h1>
+
+		<h:form id="idCadastroAluguel" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" action="#{cadastroAluguel.salvar()}" process="@form" update="@form messages"/>
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/carro/ConsultaCarro" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<p:inputText value="#{cadastroAluguel.aluguel.id}" readonly="true" disabled="true"/>
+
+				<p:outputLabel value="Carro" for="carro" />
+				<p:selectOneMenu id="carro"
+					value="#{cadastroAluguel.aluguel.carro}" required="true" requiredMessage="O campo carro é obrigatório">
+					
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione Carro" />
+						
+					<f:selectItems value="#{cadastroAluguel.carros}"
+						var="carro" itemLabel="#{carro.modeloCarro.descricao}" itemValue="#{carro}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Motorista" for="motorista" />
+				<p:selectOneMenu id="motorista"
+					value="#{cadastroAluguel.aluguel.motorista}" required="true" requiredMessage="O campo motorista é obrigatório">
+					
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione Motorista" />
+						
+					<f:selectItems value="#{cadastroAluguel.listaDeMotoristas}"
+						var="motorista" itemLabel="#{motorista.nome}" itemValue="#{motorista}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Data da entrega" for="dataEntrega"/>
+				<p:calendar id="dataEntrega" size="20" 
+					value="#{cadastroAluguel.aluguel.dataEntrega}" pattern="dd/MM/yyyy HH:mm" stepMinute="10"/>
+				
+				<p:outputLabel value="Data da devolução" for="dataDevolucao"/>
+				<p:calendar id="dataDevolucao" size="20" 
+					value="#{cadastroAluguel.aluguel.dataDevolucao}" pattern="dd/MM/yyyy HH:mm" stepMinute="10"/>
+
+				<p:outputLabel value="Valor Atual" for="valorAtual" />
+				<p:inputText id="valorAtual" value="#{cadastroAluguel.aluguel.valorTotal}" />
+			
+			</p:panelGrid>
+				
+			<h2>Dados da apólice de seguro</h2>
+			
+			<p:panelGrid columns="2" id="panelApolice"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+				
+				<p:outputLabel value="Proteção terceiro" for="protecaoTerceiro" />
+				<p:selectBooleanCheckbox id="protecaoTerceiro" size="20" 
+					value="#{cadastroAluguel.aluguel.apoliceSeguro.protecaoTerceiro}"/>
+					
+				<p:outputLabel value="Proteção Causas Naturais" for="protecaoCausasNaturais" />
+				<p:selectBooleanCheckbox id="protecaoCausasNaturais" size="20" 
+					value="#{cadastroAluguel.aluguel.apoliceSeguro.protecaoCausasNaturais}"/>
+					
+				<p:outputLabel value="Proteção Roubo" for="protecaoRoubo" />
+				<p:selectBooleanCheckbox id="protecaoRoubo" size="20" 
+					 value="#{cadastroAluguel.aluguel.apoliceSeguro.protecaoRoubo}"/>
+
+				<p:outputLabel value="Valor da Franquia" for="valorFranquia" />
+				<p:inputText id="valorFranquia" size="20" 
+					maxlength="20" value="#{cadastroAluguel.aluguel.apoliceSeguro.valorFranquia}"/>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

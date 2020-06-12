@@ -1,0 +1,30 @@
+ROTEIRO DE IMPLEMENTAÇÕES
+
+
+1. Login e autenticação de usuario logado com Spring Security
+	1.1 auditoria de tentativas inválidas de acesso com log e envio por email
+		- captura do IP, Navegador, Data, Hora, tentativa de acesso a determinada página e sua quantidade
+		
+2. Geração de relatórios com Jasper Reports
+3. Tratamento de URL com Pretty-Faces
+4. Implementação de EJB
+5. Configuração de Perfil de acesso
+6. Implementação de Painel Adm.
+7. Uso de GIT, Maven, Jenkins
+8. Validação de view com JSF Validation
+9. Validação de modelo com bean validation
+10. Validação de modelo com JPA validation
+11. Geração de gráficos com Primefaces
+
+Locadora de Veiculos Web - Java 1.8, JSF, Primefaces, JPA, Hibernate, MySQL, Apache Velocity, MVC, Apache Maven, Jenkins
+
+
+*************
+CONFIGURAÇÃO SPRING SECURITY
+1. adição de dependencias no pom.xml
+2. configuração de filters, listening e mapping no web.xml
+3. criação do arquivo de configuração de acesso applicationContext.xml
+4. criação da classe UsuarioSistema extends User
+5. criação da classe AppUserDetailsService que consulta pelo usuario e seus grupos
+6. criação da managed bean Seguranca que provê instancia do usuario logado 
+7. criação das paginas de Login, Erro, AcessoNegado, managed bean login controller

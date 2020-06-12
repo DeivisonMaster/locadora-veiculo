@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" xmlns:o="http://omnifaces.org/ui">
+
+	<ui:define name="titulo">Novo Modelo de Carro</ui:define>
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<o:viewParam name="modeloCarro"
+				value="#{cadastroModeloCarro.modeloCarro}" />
+		</f:metadata>
+		
+		<h1>Novo Modelo de Carro</h1>
+
+		<h:form id="formCadastroModeloCarro" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroModeloCarro.salvar()}" process="@this, fabricante, modelo, categoria" update="fabricante, modelo, categoria, messages" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/modeloCarro/ConsultaModeloCarro"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20" maxlength="20"
+					value="#{cadastroModeloCarro.modeloCarro.id}"
+					readonly="true" disabled="true"/>
+			
+				<p:outputLabel value="Fabricante" for="fabricante" />
+				<p:selectOneMenu id="fabricante" value="#{cadastroModeloCarro.modeloCarro.fabricante}" 
+					required="true" requiredMessage="Campo Fabricante obrigatório">
+					
+					<f:selectItem itemLabel="Selecione o fabricante"/>
+					<f:selectItems value="#{cadastroModeloCarro.fabricantes}" var="fabricante"
+						itemLabel="#{fabricante.nome}" itemValue="#{fabricante}"/>	
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Modelo" for="modelo" />
+				<p:inputText id="modelo" size="20" maxlength="20"
+					value="#{cadastroModeloCarro.modeloCarro.descricao}"
+					required="true" validatorMessage="Campo modelo obrigatório" />
+					
+				<p:outputLabel value="Categoria" for="categoria" />
+				<p:selectOneMenu id="categoria" value="#{cadastroModeloCarro.modeloCarro.catergoria}" 
+					required="true" requiredMessage="Campo categoria do veículo é obrigatório">
+					
+					<f:selectItem itemLabel="Selecione a categoria"/>
+					<f:selectItems value="#{cadastroModeloCarro.categorias}" var="categoria"
+						itemLabel="#{categoria.descricao}" itemValue="#{categoria}"/>	
+				</p:selectOneMenu>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

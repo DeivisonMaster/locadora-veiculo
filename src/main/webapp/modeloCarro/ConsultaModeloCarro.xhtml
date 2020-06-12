@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Consulta Modelo de Carro</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="idConsultaModeloCarro" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<h1>Consulta Modelo de Carro</h1>
+
+			<p:toolbar style="margin-top: 20px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" id="botaoNovo" action="/modeloCarro/CadastroModeloCarro" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		
+			<p:dataTable id="tblModeloCarro" var="modelo" 
+				value="#{consultaModeloCarro.lazyModeloCarro}"
+				style="margin-top: 20px;" emptyMessage="Nenhum modelo de carro cadastrado."
+				paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				rows="3" lazy="true">
+					
+					
+				<p:column headerText="Código" style="text-align: center; width: 100px;">
+					<h:outputText value="#{modelo.id}" />
+				</p:column>
+				
+				<p:column headerText="Descrição">
+					<h:outputText value="#{modelo.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Fabricante do Carro">
+					<h:outputText value="#{modelo.fabricante.nome}" />
+				</p:column>
+				
+				<p:column headerText="Categoria do Carro">
+					<h:outputText value="#{modelo.categoria.descricao}" />
+				</p:column>
+				
+				<p:column style="width: 100px; text-align: center;">
+					<p:button outcome="CadastroModeloCarro" icon="ui-icon-pencil" title="Editar">
+						<f:param name="modeloCarro" value="#{modelo.id}"/>
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir" 
+						oncomplete="PF('confirmarExclusao').show();" process="@this"
+						update=":idConsultaModeloCarro:dlgConfirmaExclusao">
+						
+						<f:setPropertyActionListener 
+							target="#{consultaModeloCarro.modeloCarroSelecionado}" 
+							value="#{modelo}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog id="dlgConfirmaExclusao" header="Exclusão de Produto" 
+					message="Tem certeza que deseja excluir o Modelo de Carro #{consultaModeloCarro.modeloCarroSelecionado.id} ?"
+					widgetVar="confirmarExclusao">
+				
+				<div style="margin: 0 auto; height: auto; width: 118px;">
+					<p:commandButton value="Sim" oncomplete="PF('confirmarExclusao').hide(); "
+						action="#{consultaModeloCarro.excluir()}" 
+						process="@this" update=":idConsultaModeloCarro:tblModeloCarro"/>
+					
+					<p:button value="Não" onclick="PF('confirmarExclusao').hide(); return false;"/>
+				</div>
+			</p:confirmDialog>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+

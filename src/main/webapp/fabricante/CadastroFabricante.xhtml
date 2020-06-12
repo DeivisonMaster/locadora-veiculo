@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:o="http://omnifaces.org/ui">
+
+
+	<ui:define name="titulo">Novo Fabricante</ui:define>
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<o:viewParam name="fabricante"
+				value="#{cadastroFabricanteController.fabricante}" />
+		</f:metadata>
+		
+		<h1>Novo Fabricante</h1>
+
+		<h:form id="formCadastroFabricante" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroFabricanteController.salvar()}" process="@form"
+						update="@form messages" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/fabricante/ConsultaFabricante"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20" maxlength="20"
+					value="#{cadastroFabricanteController.fabricante.id}"
+					readonly="true" disabled="true"/>
+
+
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="20" maxlength="20"
+					value="#{cadastroFabricanteController.fabricante.nome}"
+					required="true" validatorMessage="Campo obrigatório" />
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

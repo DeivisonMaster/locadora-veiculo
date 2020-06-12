@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+	
+	<div style="float: left">
+		<h1>Locadora de Veículos</h1>
+	</div>
+
+	<div style="float: right; margin-right: 10px">
+		<h:form style="display: inline-block">
+<!-- 			<span style="float: left; margin: 7px 0 0 0; font-size: 14px"> -->
+<!-- 				Olá, #{seguranca.nomeUsuario} -->
+<!-- 			</span> -->
+		
+			<p:menubar styleClass="menu-sistema">
+				<p:menuitem value="Página Inicial" outcome="/PaginaInicial.xhtml"/>
+			
+				<p:menuitem value="Novo Aluguel" outcome="/aluguel/CadastroAluguel"/>
+				
+				<p:submenu label="Cadastros">
+					<p:menuitem value="Fabricante" outcome="/fabricante/CadastroFabricante"/>
+					<p:menuitem value="Modelo Carro" outcome="/modeloCarro/CadastroModeloCarro"/>
+					<p:menuitem value="Acessório" outcome="/acessorio/CadastroAcessorio"/>
+					<p:menuitem value="Carro" outcome="/carro/CadastroCarro"/>
+					<p:separator />
+					<p:menuitem value="Funcionário" outcome="/funcionario/CadastroFuncionario"/>
+					<p:menuitem value="Motorista" outcome="/motorista/CadastroMotorista"/>
+				</p:submenu>
+				
+				<p:submenu label="Consultas">
+					<p:menuitem value="Fabricante" outcome="/fabricante/ConsultaFabricante"/>
+				</p:submenu>
+				
+				<p:submenu label="Relatórios">
+					<p:menuitem value="Receita por carro" />
+				</p:submenu>
+				
+				<p:menuitem value="Sair" url="/j_spring_security_logout"/>
+			</p:menubar>
+		</h:form>
+	</div>
+</html>

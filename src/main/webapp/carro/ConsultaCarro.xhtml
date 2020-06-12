@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Consulta de Carros</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="idConsultaCarro" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<h1>Consulta de Carro</h1>
+
+			<p:toolbar style="margin-top: 20px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" id="botaoNovo"
+						action="/carro/CadastroCarro" />
+				</p:toolbarGroup>
+			</p:toolbar>
+		
+			<p:dataTable id="tblCarro" var="carro" 
+				value="#{consultaCarro.listaCarros}"
+				style="margin-top: 20px;" emptyMessage="Nenhum carro cadastrado.">
+					
+				<p:column headerText="Código" style="text-align: center; width: 100px;">
+					<h:outputText value="#{carro.id}" />
+				</p:column>
+				
+				<p:column headerText="Placa">
+					<h:outputText value="#{carro.placa}" />
+				</p:column>
+				
+				<p:column headerText="Cor">
+					<h:outputText value="#{carro.cor}" />
+				</p:column>
+				
+				<p:column headerText="Valor diária">
+					<h:outputText value="#{carro.valorDiaria}" />
+				</p:column>
+				
+				<p:column headerText="Imagem" style="width: 10%; text-align: center;">
+					<p:commandButton icon="ui-icon-extlink" title="Imagem"
+						process="@this" oncomplete="PF('mostraFotoCarro').show();"
+						update=":idConsultaCarro:mostraFotoCarroDialog"
+						action="#{consultaCarro.buscaCarroComFoto()}">
+						
+						<f:setPropertyActionListener 
+							target="#{consultaCarro.carroSelecionado}" value="#{carro}"/>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column headerText="Acessórios" style="width: 10%; text-align: center;">
+					<p:commandButton icon="ui-icon-extlink" title="Acessórios"
+						process="@this" oncomplete="PF('mostraAcessorio').show();"
+						update=":idConsultaCarro:mostraAcessorioDialog"
+						action="#{consultaCarro.buscaCarroComAcessorio()}">
+						
+						<f:setPropertyActionListener 
+							target="#{consultaCarro.carroSelecionado}" value="#{carro}"/>
+					</p:commandButton>
+				</p:column>
+				
+				<p:column style="width: 100px; text-align: center;">
+					<p:button outcome="CadastroCarro" icon="ui-icon-pencil" title="Editar">
+						<f:param name="carro" value="#{carro.id}"/>
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir" 
+						oncomplete="PF('confirmarExclusao').show();" process="@this"
+						update=":idConsultaCarro:dlgConfirmaExclusao">
+						
+						<f:setPropertyActionListener 
+							target="#{consultaCarro.carroSelecionado}" 
+							value="#{carro}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog id="dlgConfirmaExclusao" header="Exclusão de Produto" 
+					message="Tem certeza que deseja excluir o Carro #{consultaCarro.carroSelecionado.id} ?"
+					widgetVar="confirmarExclusao">
+				
+				<div style="margin: 0 auto; height: auto; width: 118px;">
+					<p:commandButton value="Sim" oncomplete="PF('confirmarExclusao').hide(); "
+						action="#{consultaCarro.excluir()}" 
+						process="@this" update=":idConsultaCarro:tblCarro"/>
+					
+					<p:button value="Não" onclick="PF('confirmarExclusao').hide(); return false;"/>
+				</div>
+			</p:confirmDialog>
+			
+			<p:dialog id="mostraAcessorioDialog" header="Acessórios do Carro" 
+				widgetVar="mostraAcessorio" modal="true">
+				
+				<p:dataList value="#{consultaCarro.carroSelecionado.acessorios}" 
+					var="acessorio" itemType="disc" rendered="#{not empty consultaCarro.carroSelecionado.acessorios}">
+					
+					#{acessorio.descricao}
+					
+					<h:outputText value="Nenhum acessório" rendered="#{empty consultaCarro.carroSelecionado.acessorios}"/>
+				</p:dataList>
+			</p:dialog>
+			
+			<p:dialog id="mostraFotoCarroDialog" header="Foto do Carro" 
+				widgetVar="mostraFotoCarro" modal="true" closeOnEscape="true">
+				
+				<h:outputText value="Nenhuma imagem cadastrada" rendered="#{consultaCarro.foto == null}"/>
+				
+    			<p:graphicImage value="#{consultaCarro.foto}" cache="false" 
+    				style="width: 500px !important; top: 150px !important; display: block; margin: 0px auto !important;"
+    				rendered="#{consultaCarro.foto != null}"/>
+			</p:dialog>
+
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+

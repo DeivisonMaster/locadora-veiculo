@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"  
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:o="http://omnifaces.org/ui"
+      xmlns:p="http://primefaces.org/ui"> 
+      
+     <ui:define name="titulo">Novo Acessorio</ui:define>
+      
+      <ui:define name="conteudo">
+      	<f:metadata>
+      		<o:viewParam name="acessorio" value="#{cadastroAcessorio.acessorio}"/>
+      	</f:metadata>
+      	
+      	<h1>Cadastro de Acessório</h1>
+      	
+      	<h:form id="idCadastroAcessorio" prependId="false">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{cadastroAcessorio.salvar()}" process="@this, descricao"
+						update="descricao, messages" />
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/acessorio/ConsultaAcessorio"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" for="codigo" />
+				<p:inputText id="codigo" size="20" maxlength="20"
+					value="#{cadastroAcessorio.acessorio.id}"
+					readonly="true" disabled="true"/>
+
+
+				<p:outputLabel value="Descrição" for="descricao" />
+				<p:inputText id="descricao" size="20" maxlength="20"
+					value="#{cadastroAcessorio.acessorio.descricao}"
+					required="true" validatorMessage="Campo descrição é obrigatório" />
+			</p:panelGrid>
+		</h:form>
+      </ui:define>
+
+</ui:composition>

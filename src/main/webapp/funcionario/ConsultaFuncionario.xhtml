@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="tituloPagina">Consulta de Funcionário</ui:define>
+
+	<ui:define name="conteudo">
+		<h1>Consulta de Funcionário</h1>
+
+		<h:form id="frmPesquisa">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" id="botaoNovo" action="/funcionario/CadastroFuncionario.xhtml" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:dataTable id="dtlFuncionario"
+				value="#{consultaFuncionario.funcionarios}" var="funcionario" style="margin-top: 20px"
+				emptyMessage="Nenhum funcionario encontrado." rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				
+				<p:column headerText="Código" style="text-align: center; width: 100px">
+					<h:outputText value="#{funcionario.id}" />
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{funcionario.nome}" />
+				</p:column>
+				
+				<p:column headerText="Data de nascimento">
+					<h:outputText value="#{funcionario.dataNascimento}" >
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</p:column>
+				
+				<p:column headerText="CPF">
+					<h:outputText value="#{funcionario.cpf}" />
+				</p:column>
+				
+				<p:column headerText="Matrícula">
+					<h:outputText value="#{funcionario.matricula}" />
+				</p:column>
+				
+				<p:column style="width: 100px; text-align: center">
+					<p:button outcome="CadastroFuncionario" icon="ui-icon-pencil" title="Editar">
+						<f:param name="funcionario" value="#{funcionario.id}" />
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="PF('confirmacaoExclusao').show()" process="@this"
+						update=":frmPesquisa:confirmacaoExclusaoDialog">
+						
+						<f:setPropertyActionListener
+							target="#{consultaFuncionario.funcionarioSelecionado}" value="#{funcionario}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog id="confirmacaoExclusaoDialog"
+				widgetVar="confirmacaoExclusao"
+				message="Tem certeza que deseja excluir o funcionario #{consultaFuncionario.funcionarioSelecionado.nome}?"
+				header="Exclusão de funcionario" severity="alert">
+				
+				<div style="margin: 0 auto; height: auto; width: 118px;">
+					<p:button value="Não"
+						onclick="confirmacaoExclusao.hide(); return false;" />
+					
+					<p:commandButton value="Sim" update=":frmPesquisa:dtlFuncionario"
+						onclick="confirmacaoExclusao.hide()" action="#{consultaFuncionario.excluir}" />
+				</div>
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

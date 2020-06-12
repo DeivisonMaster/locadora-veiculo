@@ -1,0 +1,8 @@
+<pretty-config xmlns="http://ocpsoft.org/prettyfaces/3.4.1">
+
+	<url-mapping id="login">
+		<pattern value="/login" />
+		<view-id value="Login.xhtml" />
+	</url-mapping>
+
+</pretty-config>

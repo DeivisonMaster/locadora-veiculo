@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<ui:define name="titulo">Consulta Fabricante</ui:define>
+
+	<ui:define name="conteudo">
+		<h:form id="formConsultaFabricante" prependId="false">
+			
+			<p:messages id="messages" autoUpdate="true" closable="true"/>
+			
+			<h1>Consulta de Fabricante</h1>
+			
+			<p:toolbar style="margin-top: 20px;">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" id="botaoNovo" action="/fabricante/CadastroFabricante"/>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:dataTable id="tblFabricante" var="fabricante" 
+				value="#{consultaFabricanteController.fabricantes}"
+				style="margin-top: 20px;" emptyMessage="Nenhum fabricante cadastrado."
+				paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+					
+					
+				<p:column headerText="Código" style="text-align: center; width: 100px;">
+					<h:outputText value="#{fabricante.id}" />
+				</p:column>
+				
+				<p:column headerText="Nome">
+					<h:outputText value="#{fabricante.nome}" />
+				</p:column>
+				
+				<p:column style="width: 100px; text-align: center;">
+					<p:button outcome="CadastroFabricante" icon="ui-icon-pencil" title="Editar">
+						<f:param name="fabricante" value="#{fabricante.id}"/>
+					</p:button>
+					
+					<p:commandButton icon="ui-icon-trash" title="Excluir" 
+						oncomplete="PF('confirmarExclusao').show();" process="@this"
+						update=":formConsultaFabricante:dlgConfirmaExclusao">
+						
+						<f:setPropertyActionListener 
+							target="#{consultaFabricanteController.fabricanteSelecionado}" 
+							value="#{fabricante}"/>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+			
+			<p:confirmDialog id="dlgConfirmaExclusao" header="Exclusão de Produto" 
+					message="Tem certeza que deseja excluir o fabricante #{consultaFabricanteController.fabricanteSelecionado.id}?"
+					widgetVar="confirmarExclusao">
+				
+				<div style="margin: 0 auto; height: auto; width: 118px;">
+					<p:commandButton value="Sim" oncomplete="PF('confirmarExclusao').hide(); "
+						action="#{consultaFabricanteController.excluir()}" 
+						process="@this" update=":formConsultaFabricante:tblFabricante"/>
+					
+					<p:button value="Não" onclick="PF('confirmarExclusao').hide(); return false;"/>
+				</div>
+			</p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

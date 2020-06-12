@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Novo Carro</ui:define>
+
+	<ui:define name="conteudo">
+		<f:metadata>
+			<o:viewParam name="carro" value="#{cadastroCarro.carro}" />
+		</f:metadata>
+
+		<h1>Cadastro de Carro</h1>
+
+		<h:form id="idCadastroCarro" prependId="false" enctype="multipart/form-data">
+			<p:messages id="messages" autoUpdate="true" closable="true" />
+			
+			<p:toolbar style="margin-top: 20px">
+				<p:toolbarGroup>
+					<p:commandButton value="Novo" action="#{cadastroCarro.salvar()}" 
+						process="@form" update="@form messages" ajax="false"/>
+				</p:toolbarGroup>
+
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/carro/ConsultaCarro" />
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="panel"
+				style="width: 100%; margin-top: 20px" columnClasses="rotulo, campo">
+
+				<p:outputLabel value="Código" />
+				<p:inputText value="#{cadastroCarro.carro.id}" readonly="true" disabled="true"/>
+
+				<p:outputLabel value="Modelo Carro" for="modeloCarro" />
+				<p:selectOneMenu id="modeloCarro"
+					value="#{cadastroCarro.carro.modeloCarro}" required="true" requiredMessage="O campo modelo de carro é obrigatório">
+					
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione Modelo do Carro" />
+					
+					<f:selectItems value="#{cadastroCarro.listaModeloCarro}"
+						var="modelo" itemLabel="#{modelo.descricao}" itemValue="#{modelo}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Placa" for="placa" />
+				<p:inputText id="placa" value="#{cadastroCarro.carro.placa}" required="true" requiredMessage="O campo placa é obrigatorio"/>
+				
+				<p:outputLabel value="Chassi" for="chassi" />
+				<p:inputText id="chassi" value="#{cadastroCarro.carro.chassi}" required="true" requiredMessage="O campo chassi é obrigatorio"/>
+
+				<p:outputLabel value="Cor" for="cor" />
+				<p:inputText id="cor" size="20" maxlength="20" required="true" requiredMessage="O campo cor é obrigatório"
+					value="#{cadastroCarro.carro.cor}" />
+
+				<p:outputLabel value="Valor Diária" for="valorDiaria" />
+				<p:inputText id="valorDiaria" size="20" maxlength="20"
+					value="#{cadastroCarro.carro.valorDiaria}" required="true" requiredMessage="O campo valor da diária é obrigatório"/>
+					
+
+				<p:outputLabel value="Acessório" for="acessorio" />
+				<p:selectManyCheckbox id="acessorio" value="#{cadastroCarro.acessoriosSelecionados}" styleClass="many-checkbox">
+					
+					<f:selectItems var="acessorio" value="#{cadastroCarro.acessorios}"
+						itemLabel="#{acessorio.descricao}" itemValue="#{acessorio}" />
+						
+				</p:selectManyCheckbox>
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
