@@ -3,15 +3,22 @@ package br.com.locadora.security;
 import java.security.Principal;
 
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Produces;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+
+import br.com.locadora.util.cdi.UsuarioLogado;
 
 @Named
 @RequestScoped
 public class Seguranca {
 	
+	@Inject
+	private ExternalContext externalContext;
 	
 	public String getNomeUsuario() {
 		String nome = null;
@@ -25,6 +32,8 @@ public class Seguranca {
 		return nome;
 	}
 
+	@Produces
+	@UsuarioLogado
 	private UsuarioSistema getUsuarioLogado() {
 		UsuarioSistema usuario = null;
 		
@@ -36,5 +45,9 @@ public class Seguranca {
 		}
 		
 		return usuario;
+	}
+	
+	public boolean isCadastrarFuncionario() {
+		return this.externalContext.isUserInRole("ADMINISTRADOR") || this.externalContext.isUserInRole("VENDEDOR"); 
 	}
 }

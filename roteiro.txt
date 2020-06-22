@@ -1,20 +1,21 @@
 ROTEIRO DE IMPLEMENTAÇÕES
 
 
-1. Login e autenticação de usuario logado com Spring Security
+1. Login e autenticação com Spring Security = ok
 	1.1 auditoria de tentativas inválidas de acesso com log e envio por email
 		- captura do IP, Navegador, Data, Hora, tentativa de acesso a determinada página e sua quantidade
 		
-2. Geração de relatórios com Jasper Reports
-3. Tratamento de URL com Pretty-Faces
-4. Implementação de EJB
-5. Configuração de Perfil de acesso
-6. Implementação de Painel Adm.
-7. Uso de GIT, Maven, Jenkins
-8. Validação de view com JSF Validation
-9. Validação de modelo com bean validation
-10. Validação de modelo com JPA validation
-11. Geração de gráficos com Primefaces
+2. Geração de relatórios com Jasper Reports	=
+3. Tratamento de URL com Pretty-Faces		=
+4. Implementação de EJB						= 
+5. Configuração de Perfil de acesso			= ok
+6. Uso de GIT, Maven, Jenkins				=
+7. Validação de view com JSF Validation		= ok
+8. Validação de modelo com bean validation	= 
+9. Validação de modelo com JPA validation	=
+10. Geração de gráficos com Primefaces		= ok
+11. Notificação por e-mail					= 
+12. Log4j									= ok
 
 Locadora de Veiculos Web - Java 1.8, JSF, Primefaces, JPA, Hibernate, MySQL, Apache Velocity, MVC, Apache Maven, Jenkins
 

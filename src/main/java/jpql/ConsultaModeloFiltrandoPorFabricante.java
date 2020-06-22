@@ -12,7 +12,7 @@ public class ConsultaModeloFiltrandoPorFabricante {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
 		EntityManager entityManager = factory.createEntityManager();
 		
-		TypedQuery<String> query = entityManager.createQuery("select mc.descricao from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen'", String.class);
+		TypedQuery<String> query = entityManager.createQuery("select mc.fabricante.nome from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen'", String.class);
 		List<String> lista = query.getResultList();
 		
 		for (String s : lista) {

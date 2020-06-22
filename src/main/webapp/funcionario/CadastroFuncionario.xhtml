@@ -23,7 +23,7 @@
 				<p:toolbarGroup>
 					<p:commandButton value="Salvar" id="botaoSalvar"
 						action="#{cadastroFuncionario.salvar()}" process="@form"
-						update="@form messages" />
+						update="@form messages" disabled="#{not seguranca.cadastrarFuncionario}"/>
 				</p:toolbarGroup>
 
 				<p:toolbarGroup align="right">

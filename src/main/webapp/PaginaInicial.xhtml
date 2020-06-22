@@ -6,9 +6,24 @@
     xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="titulo">Dashboard</ui:define>
-
+	
 	<ui:define name="conteudo">
-		<br/><br/><br/>Seja bem-vindo!<br/><br/><br/>
+		<script type="text/javascript">
+			function exportaGrafico(){
+				$('#output').empty().append(PF('graficolinha').exportAsImage());
+				PF('dlg').show();
+			}
+		</script>
+		
+		<p:commandButton type="button" value="Exportar Gráfico" icon="pi pi-home" onclick="exportaGrafico();" style="float: right;"/>
+		<br/>
+		
+		<p:chart type="bar" model="#{relatorioModeloCarroController.initBarModel()}" style="width: 100%; height: 500px;" animate="true" responsive="true" widgetVar="graficolinha"/>
+<!-- 		<p:chart type="line" model="#{relatorioModeloCarroController.initLinearModel()}" style="height: 300px;" animate="true" /> -->
+
+		<p:dialog widgetVar="dlg" showEffect="fade" modal="true" header="Gráfico em Imagem" resizable="false" responsive="true">
+    		<p:outputPanel id="output" layout="block" style="width:500px; height:300px"/>
+		</p:dialog>
 	</ui:define>
 
 </ui:composition>

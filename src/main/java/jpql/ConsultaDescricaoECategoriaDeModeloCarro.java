@@ -10,17 +10,17 @@ import javax.persistence.Query;
 
 public class ConsultaDescricaoECategoriaDeModeloCarro {
 	public static void main(String[] args) {
-		
 		// 6.5 Trabalhando com Projeções
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
 		EntityManager entityManager = factory.createEntityManager();
 		
-		String jpql  = "select mc.descricao, mc.categoria from ModeloCarro mc";
-		List<Object[]> resultados = entityManager.createQuery(jpql).getResultList();
+		String jpql = "select mc.descricao, mc.catergoria from ModeloCarro mc";
+		List<Object[]> listaArray = entityManager.createQuery(jpql).getResultList();
 		
-		for (Object[] obj : resultados) {
-			System.out.println("descrição: " + obj[0]);
-			System.out.println("descrição: " + obj[1]);
+		for (int i = 0; i < listaArray.size(); i++) {
+			for (Object[] obj : listaArray) {
+				System.out.println(obj[i]);
+			}
 		}
 	}
 }

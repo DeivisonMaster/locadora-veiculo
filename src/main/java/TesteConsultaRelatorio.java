@@ -1,6 +1,3 @@
-package br.com.locadora.dao;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +7,8 @@ import java.util.TreeMap;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.hibernate.Criteria;
@@ -21,29 +20,32 @@ import org.hibernate.type.StandardBasicTypes;
 import org.hibernate.type.Type;
 
 import br.com.locadora.model.Aluguel;
+import br.com.locadora.model.DataAluguel;
 import br.com.locadora.model.DataValor;
-import br.com.locadora.model.Usuario;
+import br.com.locadora.security.Seguranca;
 import br.com.locadora.util.jpa.EntityManagerProducer;
 
-public class AluguelDAO implements Serializable{
-	private static final long serialVersionUID = 1L;
+public class TesteConsultaRelatorio {
 	
-//	@Inject
-	private EntityManager entityManager;
-	
-	public AluguelDAO() {
-		this.entityManager = new EntityManagerProducer().create();
-	}
-	
-	public void salvar(Aluguel aluguel) {
-		this.entityManager.getTransaction().begin();
-		this.entityManager.merge(aluguel); // merge = resolve detached entity
-		this.entityManager.getTransaction().commit();
-	}
-	
-	public Map<Date, BigDecimal> aluguelPorData(Integer numeroDias, Usuario usuario){
-		Session session = entityManager.unwrap(Session.class);
+	public static void main(String[] args) {
+		EntityManager em = new EntityManagerProducer().create();
+		Session session = em.unwrap(Session.class);
 		
+		
+		Map<Date, BigDecimal> aluguelPorData = aluguelPorData(15, session);
+		for (Date data : aluguelPorData.keySet()) {
+			System.out.println(data + " " + aluguelPorData.get(data));
+		}
+	}
+	
+	/*
+	 * select date(data_criacao) as data, sum(valor_total) as valor 
+	  	from pedido where data_criacao >= :dataInicial and vendedor_id = :criadoPor
+		group by date(data_criacao)
+	 * 
+	 * */
+	
+	private static Map<Date, BigDecimal> aluguelPorData(Integer numeroDias, Session session){
 		Calendar dataInicial = Calendar.getInstance();
 		System.out.println(dataInicial);
 		
@@ -66,9 +68,9 @@ public class AluguelDAO implements Serializable{
 				.add(Restrictions.ge("dataCadastro", dataInicial.getTime())
 			);
 		
-		if(usuario != null) {
-			criteria.add(Restrictions.eq("usuario", usuario.getNome()));
-		}
+//		if(criadoPor != null) {
+//			criteria.add(Restrictions.eq("vendedor", criadoPor));
+//		}
 		
 		List<DataValor> valoresPorData = 
 				criteria.setResultTransformer(Transformers.aliasToBean(DataValor.class)).list();
@@ -80,7 +82,7 @@ public class AluguelDAO implements Serializable{
 		return resultado;
 	}
 	
-	private Map<Date, BigDecimal> criarMapaVazio(Integer numeroDias, Calendar dataInicial) {
+	private static Map<Date, BigDecimal> criarMapaVazio(Integer numeroDias, Calendar dataInicial) {
 		Map<Date, BigDecimal>  mapaInicial = new TreeMap<>();
 		
 		dataInicial = (Calendar) dataInicial.clone();
@@ -92,6 +94,4 @@ public class AluguelDAO implements Serializable{
 		
 		return mapaInicial;
 	}
-	
-
 }

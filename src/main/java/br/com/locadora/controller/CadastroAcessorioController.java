@@ -24,14 +24,13 @@ public class CadastroAcessorioController implements Serializable{
 	private CadastroAcessorioService serviceCadastro;
 	
 	public CadastroAcessorioController() {
-		this.acessorio = new Acessorio();
+		
 	}
 	
 	@PostConstruct
 	public void init() {
-		this.limpar();
+		
 	}
-	
 	
 	public void salvar() {
 		try {

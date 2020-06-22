@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -39,16 +41,34 @@ public class Aluguel {
 	@JoinColumn(name = "id_motorista")
 	private Motorista motorista;
 	
+	@Column(name = "data_entrega")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataEntrega;
 	
+	@Column(name = "data_pedido")
 	@Temporal(TemporalType.DATE)
 	private Calendar dataPedido;
 	
+	@Column(name = "data_devolucao")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataDevolucao;
 	
+	@Column(name = "data_cadastro")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dataCadastro;
 	
+	@Column(name = "usuario")
+	private String usuario;
+	
+	
+	
+	@PrePersist
+	@PreUpdate
+	public void configuraDataCriacao() {
+		if(this.dataCadastro == null) {
+			this.dataCadastro = new Date();
+		}
+	}
 	
 	public Long getId() {
 		return id;
@@ -64,6 +84,12 @@ public class Aluguel {
 	}
 	public Carro getCarro() {
 		return carro;
+	}
+	public String getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
 	}
 	public Motorista getMotorista() {
 		return motorista;

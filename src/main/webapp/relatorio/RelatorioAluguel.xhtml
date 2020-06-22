@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml" 
+	  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:p="http://primefaces.org/ui"> 
+	
+	 <ui:define name="titulo">Relatório de Aluguel</ui:define>
+	 
+	 <ui:define name="conteudo">
+	 	<h1>Relatório de Aluguel</h1>
+	 	
+	 	<h:form id="idFormRelAluguel" prependId="false">
+	 		<p:messages id="messages" autoUpdate="true" closable="true"/>
+	 		
+	 	    <p:toolbar style="margin-top: 20px">
+	 			<p:toolbarGroup>
+	 				<p:commandButton value="Emitir" action="#{relatorioAluguelEmitido.emitir()}" ajax="false" 
+	 					onclick="this.form.target='_blank'" update="idDataIni, idDataFim"/>
+	 			</p:toolbarGroup>
+	 	    </p:toolbar>
+	 	    
+	 	    <br/>
+	 	    
+	 	    <p:panelGrid columns="2">
+	 	    	<p:outputLabel value="Data de Cadastro:"/>
+	 	    	<h:panelGroup>
+					<p:calendar id="idDataIni" value="#{relatorioAluguelEmitido.dataInicio}" required="true" requiredMessage="Data Inicio é obrigatorio">
+						
+					</p:calendar>
+	 	    		a
+	 	    		<p:calendar id="idDataFim" value="#{relatorioAluguelEmitido.dataFim}" required="true" requiredMessage="Data Fim é obrigatorio">
+	 	    			
+	 	    		</p:calendar>	 	    	
+	 	    	</h:panelGroup>
+	 	    </p:panelGrid>
+	 	</h:form>
+	 </ui:define>
+</ui:composition>

@@ -60,8 +60,8 @@
 					value="#{cadastroCarro.carro.valorDiaria}" required="true" requiredMessage="O campo valor da diária é obrigatório"/>
 					
 
-				<p:outputLabel value="Acessório" for="acessorio" />
-				<p:selectManyCheckbox id="acessorio" value="#{cadastroCarro.acessoriosSelecionados}" styleClass="many-checkbox">
+				<p:outputLabel value="Acessório" for="acessorio"/>
+				<p:selectManyCheckbox id="acessorio" value="#{cadastroCarro.acessoriosSelecionados}" styleClass="many-checkbox" > <!-- layout="pageDirection" -->
 					
 					<f:selectItems var="acessorio" value="#{cadastroCarro.acessorios}"
 						itemLabel="#{acessorio.descricao}" itemValue="#{acessorio}" />

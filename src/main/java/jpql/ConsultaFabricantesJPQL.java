@@ -14,13 +14,12 @@ public class ConsultaFabricantesJPQL {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
 		EntityManager entityManager = factory.createEntityManager();
 
-		TypedQuery<Fabricante> query1 = entityManager.createQuery("select f from Fabricante f", Fabricante.class);
-		TypedQuery<String> query2 = entityManager.createQuery("select f.nome from Fabricante f", String.class);
-		List<String> fabricantes = query2.getResultList();
+		TypedQuery<String> nomesFabricantes = entityManager.createQuery("select f.nome from Fabricante f", String.class);
+		List<String> lista = nomesFabricantes.getResultList();
 		
-		for (String fabricante : fabricantes) {
-			System.out.println(fabricante);
-		}
+		System.out.println(lista);
+		
+		entityManager.close();
 		
 	}
 }

@@ -39,8 +39,17 @@
 		<custom-filter ref="exceptionTranslationFilter" before="FILTER_SECURITY_INTERCEPTOR"/>
 		
 		<intercept-url pattern="/PaginaInicial.xhtml" access="isAuthenticated()"/>
-		<intercept-url pattern="/fabricante/**" access="hasAnyRole('VENDEDOR', 'ADMINISTRADOR')"/>
-		<intercept-url pattern="/aluguel/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		<intercept-url pattern="/AcessoNegado.xhtml" access="isAuthenticated()"/>
+		<intercept-url pattern="/acessorio/**" access="hasAnyRole('VENDEDOR','ADMINISTRADOR')"/>
+		<intercept-url pattern="/aluguel/**" access="hasAnyRole('VENDEDOR','ADMINISTRADOR')"/>
+		<intercept-url pattern="/carro/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		<intercept-url pattern="/fabricante/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		<intercept-url pattern="/funcionario/**" access="hasAnyRole('AUXILIAR','VENDEDOR','ADMINISTRADOR')"/>
+		<intercept-url pattern="/modeloCarro/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		<intercept-url pattern="/motorista/**" access="hasAnyRole('AUXILIAR','ADMINISTRADOR')"/>
+		<intercept-url pattern="/relatorio/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		<intercept-url pattern="/usuario/**" access="hasAnyRole('ADMINISTRADOR')"/>
+		
 		<intercept-url pattern="/**" access="denyAll"/>
 		
 		<form-login login-page="/Login.xhtml" authentication-failure-url="/Login.xhtml?invalid=true" default-target-url="/" always-use-default-target="true"/>
