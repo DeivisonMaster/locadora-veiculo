@@ -59,6 +59,8 @@
 				<p:inputText id="valorDiaria" size="20" maxlength="20"
 					value="#{cadastroCarro.carro.valorDiaria}" required="true" requiredMessage="O campo valor da diária é obrigatório"/>
 					
+				<p:outputLabel value="Foto do Veiculo" for="foto" />
+				<p:fileUpload id="foto" value="#{cadastroCarro.uploadFile}" mode="simple"/>
 
 				<p:outputLabel value="Acessório" for="acessorio"/>
 				<p:selectManyCheckbox id="acessorio" value="#{cadastroCarro.acessoriosSelecionados}" styleClass="many-checkbox" > <!-- layout="pageDirection" -->

@@ -5,17 +5,16 @@ ROTEIRO DE IMPLEMENTAÇÕES
 	1.1 auditoria de tentativas inválidas de acesso com log e envio por email
 		- captura do IP, Navegador, Data, Hora, tentativa de acesso a determinada página e sua quantidade
 		
-2. Geração de relatórios com Jasper Reports	=
+2. Geração de relatórios com Jasper Reports	= ok
 3. Tratamento de URL com Pretty-Faces		=
 4. Implementação de EJB						= 
 5. Configuração de Perfil de acesso			= ok
-6. Uso de GIT, Maven, Jenkins				=
+6. Uso de GIT, Maven, Jenkins				= ok
 7. Validação de view com JSF Validation		= ok
 8. Validação de modelo com bean validation	= 
-9. Validação de modelo com JPA validation	=
-10. Geração de gráficos com Primefaces		= ok
-11. Notificação por e-mail					= 
-12. Log4j									= ok
+9. Geração de gráficos com Primefaces		= ok
+10. Notificação por e-mail					= 
+11. Log4j									= ok
 
 Locadora de Veiculos Web - Java 1.8, JSF, Primefaces, JPA, Hibernate, MySQL, Apache Velocity, MVC, Apache Maven, Jenkins
 

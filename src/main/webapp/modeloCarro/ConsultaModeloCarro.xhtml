@@ -23,7 +23,7 @@
 			<p:dataTable id="tblModeloCarro" var="modelo" 
 				value="#{consultaModeloCarro.lazyModeloCarro}"
 				style="margin-top: 20px;" emptyMessage="Nenhum modelo de carro cadastrado."
-				paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom" rowsPerPageTemplate="5,10,15"
 				rows="3" lazy="true">
 					
 					
@@ -40,7 +40,7 @@
 				</p:column>
 				
 				<p:column headerText="Categoria do Carro">
-					<h:outputText value="#{modelo.categoria.descricao}" />
+					<h:outputText value="#{modelo.catergoria.descricao}" />
 				</p:column>
 				
 				<p:column style="width: 100px; text-align: center;">

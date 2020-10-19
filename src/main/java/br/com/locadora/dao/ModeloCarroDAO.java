@@ -54,6 +54,13 @@ public class ModeloCarroDAO implements Serializable{
 		return this.entityManager.find(ModeloCarro.class, id);
 	}
 
+	
+
+	public Long encontrarQuantidadeDeModeloCarro() {
+		return this.entityManager.createQuery("select count(mc) from ModeloCarro mc", Long.class)
+				.getSingleResult();
+	}
+
 	public List<ModeloCarro> buscarComPaginacao(int first, int pageSize) {
 		TypedQuery<ModeloCarro> query = this.entityManager.createQuery("from ModeloCarro", ModeloCarro.class);
 		query.setFirstResult(first);
@@ -62,11 +69,6 @@ public class ModeloCarroDAO implements Serializable{
 		List<ModeloCarro> lista = query.getResultList();
 		
 		return lista;
-	}
-
-	public Long encontrarQuantidadeDeModeloCarro() {
-		return this.entityManager.createQuery("select count(mc) from ModeloCarro mc", Long.class)
-				.getSingleResult();
 	}
 	
 }	

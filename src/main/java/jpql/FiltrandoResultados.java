@@ -1,5 +1,4 @@
-package com.algaworks.exemplos;
-
+package jpql;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -7,19 +6,17 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import br.com.locadora.model.Carro;
-
-
-public class ExemploProblemaNmaisUm {
+public class FiltrandoResultados {
 	public static void main(String[] args) {
+		
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
 		EntityManager entityManager = factory.createEntityManager();
 		
-		TypedQuery<Carro> query = entityManager.createQuery("FROM Carro c", Carro.class);
-		List<Carro> lista = query.getResultList();
+		TypedQuery<String> query = entityManager.createQuery("select mc.fabricante.nome from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen'", String.class);
+		List<String> lista = query.getResultList();
 		
-		for (Carro carro : lista) {
-			System.out.println(carro.getPlaca());
+		for (String s : lista) {
+			System.out.println(s);
 		}
 	}
 }

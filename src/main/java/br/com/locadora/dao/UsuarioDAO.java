@@ -10,11 +10,12 @@ import javax.persistence.TypedQuery;
 
 import br.com.locadora.model.Usuario;
 import br.com.locadora.util.jpa.EntityManagerProducer;
+import br.com.locadora.util.jpa.Transactional;
 
 public class UsuarioDAO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
-	//@Inject
+	@Inject
 	private EntityManager entityManager;
 	
 	public UsuarioDAO() {
@@ -22,6 +23,7 @@ public class UsuarioDAO implements Serializable{
 	}
 	
 	
+	@Transactional
 	public void salva(Usuario usuario) {
 		this.entityManager.merge(usuario);
 	}

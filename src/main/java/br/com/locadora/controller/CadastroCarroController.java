@@ -56,7 +56,7 @@ public class CadastroCarroController implements Serializable{
 	public void salvar() {
 		try {
 			this.adicionaAcessorio();
-			//this.cadastraFotoDoVeiculo();
+			this.cadastraFotoDoVeiculo();
 			
 			this.serviceCarro.salvar(carro);
 			FacesUtil.addSuccessMessage("Carro cadastrado com sucesso!");
@@ -71,11 +71,11 @@ public class CadastroCarroController implements Serializable{
 		}
 	}
 	
-//	public void cadastraFotoDoVeiculo() {
-//		if(this.uploadFile != null) {
-//			this.carro.setFoto(this.uploadFile.getContents());
-//		}
-//	}
+	public void cadastraFotoDoVeiculo() {
+		if(this.uploadFile != null) {
+			this.carro.setFoto(this.uploadFile.getContents());
+		}
+	}
 	
 	public void adicionaAcessorio() {
 		for(Acessorio acessorio : acessoriosSelecionados) {

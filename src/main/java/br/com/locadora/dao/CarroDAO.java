@@ -9,7 +9,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceException;
 import javax.persistence.TypedQuery;
 
+import org.hibernate.exception.ConstraintViolationException;
+
 import br.com.locadora.model.Carro;
+import br.com.locadora.util.ErroConstraintException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.jpa.EntityManagerProducer;
 import br.com.locadora.util.jpa.Transactional;
@@ -45,15 +48,15 @@ public class CarroDAO implements Serializable{
 	}
 
 	@Transactional
-	public void excluir(Carro carro) throws NegocioException{
+	public void excluir(Carro carro) throws NegocioException, ErroConstraintException{
 		try {
 			Carro carroId = this.buscarPorId(carro.getId()); // associa o objeto fabricante ao entityManager
 			
 			this.entityManager.remove(carroId);
 			this.entityManager.flush();
 			
-		} catch (PersistenceException e) {
-			throw new NegocioException("Erro ao excluir Carro");
+		} catch (Exception e) {
+			throw new ErroConstraintException("Erro ao excluir carro, há uma restrição de aluguel no banco de dados!", e.getCause());
 		}
 	}
 	

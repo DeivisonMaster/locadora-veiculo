@@ -22,7 +22,9 @@
 			</p:toolbar>
 		
 			<p:dataTable id="tblCarro" var="carro" 
-				value="#{consultaCarro.listaCarros}"
+				value="#{consultaCarro.lazyCarro}"
+				rows="3" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom"
+				lazy="true" rowsPerPageTemplate="5,10"
 				style="margin-top: 20px;" emptyMessage="Nenhum carro cadastrado.">
 					
 				<p:column headerText="Código" style="text-align: center; width: 100px;">

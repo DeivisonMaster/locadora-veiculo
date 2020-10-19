@@ -19,9 +19,13 @@ import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
 import br.com.locadora.dao.CarroDAO;
+import br.com.locadora.lazy.model.LazyCarroDataModel;
 //import br.com.locadora.lazy.model.LazyCarroDataModel;
 import br.com.locadora.model.Carro;
-
+import br.com.locadora.service.CadastroCarroService;
+import br.com.locadora.util.ErroConstraintException;
+import br.com.locadora.util.NegocioException;
+import br.com.locadora.util.jsf.FacesUtil;
 import sun.awt.image.ByteArrayImageSource;
 
 @Named("consultaCarro")
@@ -32,8 +36,11 @@ public class ConsultaCarroController implements Serializable{
 	private Carro carroSelecionado;
 	private Collection<Carro> listaCarros;
 	private BufferedImage imagemCarro;
-	//private LazyCarroDataModel lazyCarro;
+	private LazyCarroDataModel lazyCarro;
 	private List<Carro> carros;
+	
+	@Inject
+	private CadastroCarroService serviceCarro;
 	
 	@Inject
 	private CarroDAO dao;
@@ -41,8 +48,19 @@ public class ConsultaCarroController implements Serializable{
 	@PostConstruct
 	public void init() {
 		this.limpar();
-		this.listaCarros = this.dao.buscarTodos();
-		//this.lazyCarro = new LazyCarroDataModel(dao);
+		//this.listaCarros = this.dao.buscarTodos();
+		this.lazyCarro = new LazyCarroDataModel(dao);
+	}
+	
+	
+	public void excluir() {
+		try {
+			this.serviceCarro.excluir(this.carroSelecionado);
+			
+		} catch (Exception e) {
+			Throwable cause = e.getCause();
+			FacesUtil.addErrorMessage(cause.getMessage());
+		}
 	}
 	
 	public void limpar() {
@@ -56,28 +74,28 @@ public class ConsultaCarroController implements Serializable{
 	public void buscaCarroComFoto(){
 		this.carroSelecionado = this.dao.buscaCarroComFoto(this.carroSelecionado.getId());
 		
-//		if(this.carroSelecionado.getFoto() != null) {
-//			try {
-//				BufferedImage imagem = ImageIO.read(new ByteArrayInputStream(this.carroSelecionado.getFoto()));
-//				
-//				this.imagemCarro = imagem;
-//				
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//		}
+		if(this.carroSelecionado.getFoto() != null) {
+			try {
+				BufferedImage imagem = ImageIO.read(new ByteArrayInputStream(this.carroSelecionado.getFoto()));
+				
+				this.imagemCarro = imagem;
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public StreamedContent getFoto() {
 		DefaultStreamedContent content = null;
 		
-//		if (this.carroSelecionado != null && this.carroSelecionado.getFoto() != null
-//				&& this.carroSelecionado.getFoto().length > 0) {
-//			
-//			byte[] imagem = this.carroSelecionado.getFoto();
-//			
-//			content = new DefaultStreamedContent(new ByteArrayInputStream(imagem), "image/jpg", "carro.jpg");
-//		}
+		if (this.carroSelecionado != null && this.carroSelecionado.getFoto() != null
+				&& this.carroSelecionado.getFoto().length > 0) {
+			
+			byte[] imagem = this.carroSelecionado.getFoto();
+			
+			content = new DefaultStreamedContent(new ByteArrayInputStream(imagem), "image/jpg", "carro.jpg");
+		}
 		
 		return content;
 	}
@@ -90,6 +108,7 @@ public class ConsultaCarroController implements Serializable{
 		this.carroSelecionado = carroSelecionado;
 	}
 	public Collection<Carro> getListaCarros() {
+		this.listaCarros = this.dao.buscarTodos();
 		return listaCarros;
 	}
 	public BufferedImage getImagemCarro() {
@@ -98,7 +117,7 @@ public class ConsultaCarroController implements Serializable{
 	public void setImagemCarro(BufferedImage imagemCarro) {
 		this.imagemCarro = imagemCarro;
 	}
-//	public LazyCarroDataModel getLazyCarro() {
-//		return lazyCarro;
-//	}
+	public LazyCarroDataModel getLazyCarro() {
+		return lazyCarro;
+	}
 }

@@ -1,5 +1,6 @@
 package br.com.locadora.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -27,8 +28,10 @@ public class Usuario {
 	private String senha;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "usuario_grupo", joinColumns = @JoinColumn(name = "id_usuario"), inverseJoinColumns = @JoinColumn(name = "id_grupo"))
-	private Collection<Grupo> grupos;
+	@JoinTable(name = "usuario_grupo", 
+		joinColumns = @JoinColumn(name = "id_usuario"), 
+		inverseJoinColumns = @JoinColumn(name = "id_grupo"))
+	private Collection<Grupo> grupos = new ArrayList<>();
 	
 	
 	public Long getId() {

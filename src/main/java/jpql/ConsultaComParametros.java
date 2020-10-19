@@ -8,6 +8,8 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import br.com.locadora.model.ModeloCarro;
+
 public class ConsultaComParametros {
 	public static void main(String[] args) {
 		
@@ -22,8 +24,9 @@ public class ConsultaComParametros {
 				.setParameter("pModelo", modelo)
 				.getResultList();
 		
-		for (String s : lista) {
-			System.out.println(s);
-		} 
+		for (String descricao : lista) {
+			System.out.println(descricao);
+		}
+		
 	}
 }

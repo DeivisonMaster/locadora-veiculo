@@ -1,22 +1,26 @@
 package jpql;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
-public class ConsultaModeloFiltrandoPorFabricante {
+
+public class Projecoes {
 	public static void main(String[] args) {
-		
+		// 6.5 Trabalhando com Projeções
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
 		EntityManager entityManager = factory.createEntityManager();
 		
-		TypedQuery<String> query = entityManager.createQuery("select mc.fabricante.nome from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen'", String.class);
-		List<String> lista = query.getResultList();
+		String jpql = "select mc.descricao, mc.catergoria from ModeloCarro mc";
+		List<Object[]> listaArray = entityManager.createQuery(jpql).getResultList();
 		
-		for (String s : lista) {
-			System.out.println(s);
+		for (int i = 0; i < listaArray.size(); i++) {
+			for (Object[] obj : listaArray) {
+				System.out.println(obj[i]);
+			}
 		}
 	}
 }

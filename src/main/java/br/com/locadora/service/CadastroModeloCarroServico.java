@@ -35,5 +35,15 @@ public class CadastroModeloCarroServico implements Serializable{
 		return this.dao.buscarTodos();
 		
 	}
+
+
+	public void excluir(ModeloCarro modeloCarroSelecionado) throws NegocioException {
+		try {
+			this.dao.excluir(modeloCarroSelecionado);
+			
+		} catch (NegocioException e) {
+			throw new NegocioException("Erro ao excluir o ModeloCarro");
+		}
+	}
 	
 }

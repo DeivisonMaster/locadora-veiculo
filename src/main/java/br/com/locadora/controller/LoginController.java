@@ -36,6 +36,7 @@ public class LoginController implements Serializable{
 		dispatcher.forward(request, response);
 		
 		context.responseComplete();
+		
 	}
 	
 	/**

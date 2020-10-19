@@ -7,7 +7,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-public class ConsultaAcessorioPorModeloCarro {
+public class JoinEntreEntidades {
 	public static void main(String[] args) {
 		
 		// 6.7 JOIN entre entidades

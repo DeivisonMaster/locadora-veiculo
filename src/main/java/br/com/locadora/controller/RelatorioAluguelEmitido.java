@@ -25,8 +25,6 @@ public class RelatorioAluguelEmitido {
 	
 	private Date dataInicio;
 	private Date dataFim;
-	private String paramDataInicio;
-	private String paramDataFim;
 	
 	
 	private EntityManager em;
@@ -82,23 +80,6 @@ public class RelatorioAluguelEmitido {
 	public void setDataFim(Date dataFim) {
 		this.dataFim = dataFim;
 	}
-
-	public String getParamDataInicio() {
-		return paramDataInicio;
-	}
-
-	public void setParamDataInicio(String paramDataInicio) {
-		this.paramDataInicio = paramDataInicio;
-	}
-
-	public String getParamDataFim() {
-		return paramDataFim;
-	}
-
-	public void setParamDataFim(String paramDataFim) {
-		this.paramDataFim = paramDataFim;
-	}
-	
 	
 	
 }

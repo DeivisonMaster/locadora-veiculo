@@ -10,6 +10,9 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import br.com.locadora.model.Aluguel;
 import br.com.locadora.model.ApoliceSeguro;
 import br.com.locadora.model.Carro;
@@ -28,6 +31,7 @@ public class CadastroAluguelController implements Serializable{
 	private Aluguel aluguel;
 	private Collection<Carro> carros;
 	private Collection<Motorista> motoristas;
+	private static Log log = LogFactory.getLog(CadastroAluguelController.class);
 	
 	@Inject
 	private CadastroCarroService carroService;
@@ -47,7 +51,6 @@ public class CadastroAluguelController implements Serializable{
 		this.motoristas = motoristaService.buscaTodos();
 	}
 	
-	
 	public void salvar() {
 		try {
 			this.aluguelService.salvar(this.aluguel);
@@ -55,6 +58,8 @@ public class CadastroAluguelController implements Serializable{
 			
 			this.limpar();
 		} catch (NegocioException e) {
+			log.error("Erro ao cadastrar Aluguel: " + e.getMessage(), e);
+			
 			FacesUtil.addSuccessMessage(e.getMessage());
 			e.printStackTrace();
 		}

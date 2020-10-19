@@ -44,11 +44,11 @@ public class ExecutaRelatorio implements Work{
 			JasperPrint print = JasperFillManager.fillReport(stream, this.parametros, conexao);
 			
 			JRExporter exportador = new JRPdfExporter();
-			exportador.setParameter(JRExporterParameter.OUTPUT_STREAM, this.response.getOutputStream());
 			exportador.setParameter(JRExporterParameter.JASPER_PRINT, print);
+			exportador.setParameter(JRExporterParameter.OUTPUT_STREAM, this.response.getOutputStream());
 			
 			response.setContentType("application/pdf");
-			//response.setHeader("Content-Disposition", "attachment; filename=\"" + this.nomeArquivo + "\"");
+			response.setHeader("Content-Disposition", "inline; filename=\"" + this.nomeArquivo + "\"");
 			
 			exportador.exportReport();
 			

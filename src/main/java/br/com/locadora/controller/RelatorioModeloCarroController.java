@@ -45,8 +45,6 @@ public class RelatorioModeloCarroController {
 	 * - Carros mais alugados do mês/ano
 	 * - Funcionários que alugam mais veiculos
 	 * */
-	
-	
 	/**
 	 * @description Gráfico comparativo entre modelo de carros mais alugados do mês
 	 * */
@@ -64,7 +62,7 @@ public class RelatorioModeloCarroController {
 		LineChartSeries serie = new LineChartSeries();
 		serie.setLabel("Todos os Aluguéis");
 		
-		Integer numeroDias = 15;
+		Integer numeroDias = 40;
 		Map<Date, BigDecimal> valoresPorData = this.dao.aluguelPorData(numeroDias, usuario);
 		
 		for (Date data : valoresPorData.keySet()) {
@@ -93,9 +91,9 @@ public class RelatorioModeloCarroController {
 		Integer numeroDias = 15;
 		Map<Date, BigDecimal> valoresPorData = this.dao.aluguelPorData(numeroDias, usuario);
 		
-		for (Date data : valoresPorData.keySet()) {
-			System.out.println(data + " " + valoresPorData.get(data));
-		}
+//		for (Date data : valoresPorData.keySet()) {
+//			System.out.println(data + " " + valoresPorData.get(data));
+//		}
 		
 		for (Date data : valoresPorData.keySet()) {
 			serie.setLabel("Aluguel");

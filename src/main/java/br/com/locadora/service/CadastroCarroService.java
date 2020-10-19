@@ -8,6 +8,7 @@ import javax.persistence.PersistenceException;
 
 import br.com.locadora.dao.CarroDAO;
 import br.com.locadora.model.Carro;
+import br.com.locadora.util.ErroConstraintException;
 import br.com.locadora.util.NegocioException;
 import br.com.locadora.util.jpa.Transactional;
 
@@ -31,6 +32,10 @@ public class CadastroCarroService implements Serializable{
 
 	public Collection<Carro> buscaTodos() {
 		return this.dao.buscarTodos();
+	}
+
+	public void excluir(Carro carroSelecionado) throws NegocioException, ErroConstraintException {
+		this.dao.excluir(carroSelecionado);
 	}
 
 }

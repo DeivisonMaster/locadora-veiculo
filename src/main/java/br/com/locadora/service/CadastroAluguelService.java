@@ -5,6 +5,9 @@ import java.util.Calendar;
 
 import javax.inject.Inject;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import br.com.locadora.dao.AluguelDAO;
 import br.com.locadora.model.Aluguel;
 import br.com.locadora.security.UsuarioSistema;
