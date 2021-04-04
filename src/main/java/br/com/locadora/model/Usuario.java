@@ -27,7 +27,7 @@ public class Usuario {
 	
 	private String senha;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.MERGE)
 	@JoinTable(name = "usuario_grupo", 
 		joinColumns = @JoinColumn(name = "id_usuario"), 
 		inverseJoinColumns = @JoinColumn(name = "id_grupo"))
@@ -73,5 +73,31 @@ public class Usuario {
 	public void setGrupos(Collection<Grupo> grupos) {
 		this.grupos = grupos;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
 	
 }

@@ -82,7 +82,7 @@ public class CarroDAO implements Serializable{
 
 
 	public List<Carro> buscarComPaginacao(int first, int pageSize) {
-		return entityManager.createNamedQuery("Carro.buscarTodos")
+		return entityManager.createNamedQuery("Carro.consultaTodos", Carro.class)
 				.setFirstResult(first)
 				.setMaxResults(pageSize)
 				.getResultList();

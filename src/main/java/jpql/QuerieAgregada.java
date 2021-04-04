@@ -7,24 +7,24 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 
+import br.com.locadora.model.Aluguel;
 import br.com.locadora.model.Carro;
 
 
 public class QuerieAgregada {
 	public static void main(String[] args) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
-		EntityManager entityManager = factory.createEntityManager();
+		EntityManager em = factory.createEntityManager();
 		
-		String jpql = "select c, count(a), max(a.valorTotal), avg(a.valorTotal) from Carro c JOIN c.aluguel a GROUP BY c";
+//		String jpql = "select c, count(a), max(a.valorTotal), avg(a.valorTotal) from Carro c JOIN c.aluguel a GROUP BY c";
+		String jpql = "select new jpql.AluguelCarroInfo(c, count(a), max(a.valorTotal), avg(a.valorTotal)) from Carro c join c.aluguel a group by c";
+		List<AluguelCarroInfo> lista = em.createQuery(jpql, AluguelCarroInfo.class).getResultList();
 		
-		List<Object[]> resultados = entityManager.createQuery(jpql).getResultList();
-		
-		for (Object[] obj : resultados) {
-			System.out.println("Modelo: " + ((Carro) obj[0]).getModeloCarro().getDescricao());
-			System.out.println("Quantidade de alugueis: " + obj[1]);
-			System.out.println("Valor máximo: " + obj[2]);
-			System.out.println("Valor médio: " + obj[3]);
+		for (AluguelCarroInfo aluguel : lista) {
+			System.out.println("Modelo: " + aluguel.getCarro().getModeloCarro().getDescricao());
+			System.out.println("Quantidade: " + aluguel.getTotalAlugueis());
+			System.out.println("Média: " + aluguel.getValorMedio());
+			System.out.println("Valor total: " + aluguel.getValorMaximo());
 		}
-		
 	}
 }

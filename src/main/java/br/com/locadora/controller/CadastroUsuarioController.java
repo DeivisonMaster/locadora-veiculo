@@ -17,6 +17,7 @@ import br.com.locadora.model.Usuario;
 @ViewScoped
 public class CadastroUsuarioController implements Serializable {
 	
+	private static final long serialVersionUID = 1L;
 	private Usuario usuario;
 	private EnumGrupo[] gruposSelecionados;
 	

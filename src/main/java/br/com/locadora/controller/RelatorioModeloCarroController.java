@@ -88,7 +88,7 @@ public class RelatorioModeloCarroController {
 		
 		ChartSeries serie = new ChartSeries();
 		
-		Integer numeroDias = 15;
+		Integer numeroDias = 21;
 		Map<Date, BigDecimal> valoresPorData = this.dao.aluguelPorData(numeroDias, usuario);
 		
 //		for (Date data : valoresPorData.keySet()) {

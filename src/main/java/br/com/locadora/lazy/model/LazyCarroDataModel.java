@@ -13,7 +13,7 @@ import br.com.locadora.model.Carro;
 
 
 public class LazyCarroDataModel extends LazyDataModel<Carro> implements Serializable{
-	
+	private static final long serialVersionUID = 1L;
 	private CarroDAO dao;
 
 	public LazyCarroDataModel(CarroDAO dao) {

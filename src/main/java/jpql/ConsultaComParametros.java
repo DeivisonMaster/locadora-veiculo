@@ -12,21 +12,17 @@ import br.com.locadora.model.ModeloCarro;
 
 public class ConsultaComParametros {
 	public static void main(String[] args) {
-		
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
-		EntityManager entityManager = factory.createEntityManager();
+		EntityManager em = factory.createEntityManager();
 		
-		String modelo = "Volkswagen";
+		String fabricante = "Volkswagen";
 		String jpql = "select mc.descricao from ModeloCarro mc where mc.fabricante.nome = :pModelo";
 		
-		List<String> lista = entityManager.createQuery(jpql, String.class)
-				//.setParameter(1, modelo)
-				.setParameter("pModelo", modelo)
-				.getResultList();
+		TypedQuery<String> query = em.createQuery(jpql, String.class);
+		query.setParameter("pModelo", fabricante);
 		
-		for (String descricao : lista) {
-			System.out.println(descricao);
-		}
+		List<String> lista = query.getResultList();
+		lista.forEach(i -> System.out.println(i));
 		
 	}
 }

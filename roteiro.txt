@@ -11,7 +11,7 @@ ROTEIRO DE IMPLEMENTAÇÕES
 5. Configuração de Perfil de acesso			= ok
 6. Uso de GIT, Maven, Jenkins				= ok
 7. Validação de view com JSF Validation		= ok
-8. Validação de modelo com bean validation	= 
+8. Validação de modelo com bean validation	= ok
 9. Geração de gráficos com Primefaces		= ok
 10. Notificação por e-mail					= 
 11. Log4j									= ok
@@ -28,3 +28,19 @@ CONFIGURAÇÃO SPRING SECURITY
 5. criação da classe AppUserDetailsService que consulta pelo usuario e seus grupos
 6. criação da managed bean Seguranca que provê instancia do usuario logado 
 7. criação das paginas de Login, Erro, AcessoNegado, managed bean login controller
+
+
+*************
+Consulta com Criteria API
+
+1. consultar todos os dados de uma tabela
+2. consultar um tipo especifico da tabela
+3. consultar tipos de dados diferentes de uma tabela
+4. consultar todos os dados de uma tabela por parametro
+6. atualizar dados da tabela por parametro 
+7. excluir dados por parametro da tabela
+
+
+ 
+
+ 

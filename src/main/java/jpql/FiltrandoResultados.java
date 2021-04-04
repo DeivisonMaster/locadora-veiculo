@@ -1,4 +1,5 @@
 package jpql;
+
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -8,15 +9,14 @@ import javax.persistence.TypedQuery;
 
 public class FiltrandoResultados {
 	public static void main(String[] args) {
-		
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("locadoraVeiculoPU");
-		EntityManager entityManager = factory.createEntityManager();
+		EntityManager em = factory.createEntityManager();
 		
-		TypedQuery<String> query = entityManager.createQuery("select mc.fabricante.nome from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen'", String.class);
-		List<String> lista = query.getResultList();
+		TypedQuery<String> query = em.createQuery("select mc.descricao from ModeloCarro mc where mc.fabricante.nome = 'Volkswagen' "
+				+ "and mc.catergoria IN ('HATCH_COMPACTO', 'SEDAN_GRANDE')", String.class);
+		List<String> modelos = query.getResultList();
 		
-		for (String s : lista) {
-			System.out.println(s);
-		}
+		modelos.forEach(m -> System.out.println(m));
+
 	}
 }

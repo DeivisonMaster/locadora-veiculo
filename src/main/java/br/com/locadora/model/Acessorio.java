@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @NamedQuery(name = "Acessorio.buscarTodos", query = "select a from Acessorio a")
@@ -16,6 +18,8 @@ public class Acessorio {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotNull
+	@Size(min = 3, max = 150)
 	private String descricao;
 
 	public Long getId() {
